@@ -1,39 +1,39 @@
-const Chat = require('../../models/chat/Chat')
-const Message=require('../../models/chat/Message')
-const User = require('../../models/user/User')
+// const Chat = require('../../models/chat/Chat')
+// const Message=require('../../models/chat/Message')
+// const User = require('../../models/user/User')
 
-const sendMessage=async(req,res)=>{
-    const{message,chatId}=req.body
+// const sendMessage=async(req,res)=>{
+//     const{message,chatId}=req.body
 
-    if (!message || !chatId) {
-        return BadRequestError("Please Provide All Fields To send Message");
-    }
+//     if (!message || !chatId) {
+//         return BadRequestError("Please Provide All Fields To send Message");
+//     }
 
-    let newMessage = {
-        sender: req.user.id,
-        message: message,
-        chat: chatId,
-      };
+//     let newMessage = {
+//         sender: req.user.id,
+//         message: message,
+//         chat: chatId,
+//       };
     
-      let m = await Message.create(newMessage);
-      m = await m.populate("sender", "firstName profilePhoto");
-      m = await m.populate("chat");
-      m = await User.populate(m, {
-        path: "chat.users",
-        select: "firstName profilePhoto email _id",
-      });
+//       let m = await Message.create(newMessage);
+//       m = await m.populate("sender", "firstName profilePhoto");
+//       m = await m.populate("chat");
+//       m = await User.populate(m, {
+//         path: "chat.users",
+//         select: "firstName profilePhoto email _id",
+//       });
 
-      await Chat.findByIdAndUpdate(chatId, { latestMessage: m }, { new: true });
+//       await Chat.findByIdAndUpdate(chatId, { latestMessage: m }, { new: true });
 
-  res.status(200).json(m);
+//   res.status(200).json(m);
      
-}
+// }
 
-const allMessages=async(req,res)=>{
-    const {chatId}=req.params
+// const allMessages=async(req,res)=>{
+//     const {chatId}=req.params
     
-    const getMessage=await Message.find({chat:chatId}).populate("sender", "firstName profilePhoto email _id").populate("chat")
-    res.status(200).json(getMessage)
-}
+//     const getMessage=await Message.find({chat:chatId}).populate("sender", "firstName profilePhoto email _id").populate("chat")
+//     res.status(200).json(getMessage)
+// }
 
-module.exports={allMessages,sendMessage}
+// module.exports={allMessages,sendMessage}
