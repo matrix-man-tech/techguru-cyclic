@@ -37,9 +37,9 @@ app.use(authMiddleware)
 
 
 const PORT = process.env.PORT 
-// app.listen(PORT, console.log(`server is running at ${PORT}`))
+app.listen(PORT, console.log(`server is running at ${PORT}`))
 
-const server=app.listen(PORT,()=>console.log(`Server started on port ${PORT}`))
+// const server=app.listen(PORT,()=>console.log(`Server started on port ${PORT}`))
  
 
 //  //socket io
